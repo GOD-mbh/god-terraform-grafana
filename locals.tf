@@ -50,9 +50,9 @@ locals {
     "persistence.enabled" = true
     "persistence.size"    = "10Gi"
 
-    "adminPassword"                      = local.grafana_password
-    "env.GF_SERVER_ROOT_URL"             = "https://grafana.${var.domains[0]}"
-    "namespace"                        = local.namespace
+    "adminPassword"           = local.grafana_password
+    "env.GF_SERVER_ROOT_URL"  = "https://grafana.${var.domains[0]}"
+    "namespace"               = local.namespace
   }
 
   #Prometheus
@@ -121,7 +121,7 @@ locals {
     "metrics.enabled"                   = "true"
     "minio.enabled"                     = local.storage > 0 ? "true" : "false"
     "minio.accessKey.password"          = "thanosStorage"
-    "minio.secretKey.password"          = local.storage > 0 ? "KMS_ENC:${aws_kms_ciphertext.thanos_password[0].ciphertext_blob}:" : ""
+    "minio.secretKey.password"          = local.storage
     "existingObjstoreSecret"            = local.storage > 0 ? kubernetes_secret.thanos_objstore[0].metadata.0.name : kubernetes_secret.s3_objstore[0].metadata.0.name
     "namespace"                         = local.namespace
     "existingServiceAccount"            = local.thanos_name
