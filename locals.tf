@@ -2,12 +2,9 @@
 
 locals {
 
-  grafana_enabled    = var.grafana_enabled ? 1 : 0
-  prometheus_enabled = var.prometheus_enabled ? 1 : 0
-  thanos_enabled     = var.thanos_enabled ? 1 : 0
-  storage            = var.thanos_storage == "s3" ? 0 : 1
-  namespace          = var.namespace == "" ? var.namespace_name : var.namespace
-  policy_resource    = local.storage == 0 ? "[\"arn:aws:s3:::${aws_s3_bucket.thanos[0].id}/*\", \"arn:aws:s3:::${aws_s3_bucket.thanos[0].id}\"]" : "[]"
+  storage         = var.thanos_storage == "s3" ? 0 : 1
+  namespace       = var.namespace == "" ? var.namespace_name : var.namespace
+  policy_resource = local.storage == 0 ? "[\"arn:aws:s3:::${aws_s3_bucket.thanos[0].id}/*\", \"arn:aws:s3:::${aws_s3_bucket.thanos[0].id}\"]" : "[]"
 
   #Grafana
   grafana_name       = "grafana"

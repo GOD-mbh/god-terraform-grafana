@@ -8,7 +8,7 @@ resource "kubernetes_namespace" "this" {
 }
 
 resource "helm_release" "grafana" {
-  count = local.grafana_enabled ? 1 : 0
+  count = var.grafana_enabled ? 1 : 0
 
   name          = local.grafana_name
   repository    = local.grafana_repository
@@ -29,7 +29,7 @@ resource "helm_release" "grafana" {
 }
 
 resource "helm_release" "prometheus" {
-  count = local.prometheus_enabled ? 1 : 0
+  count = var.prometheus_enabled ? 1 : 0
 
   name          = local.prometheus_name
   repository    = local.prometheus_repository
@@ -50,7 +50,7 @@ resource "helm_release" "prometheus" {
 }
 
 resource "helm_release" "thanos" {
-  count = local.thanos_enabled ? 1 : 0
+  count = var.thanos_enabled ? 1 : 0
 
   name          = local.thanos_name
   repository    = local.thanos_repository
