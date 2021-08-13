@@ -1,15 +1,14 @@
 # locals.tf
 
 locals {
+
   grafana_enabled    = var.grafana_enabled ? 1 : 0
   prometheus_enabled = var.prometheus_enabled ? 1 : 0
   thanos_enabled     = var.thanos_enabled ? 1 : 0
   storage            = var.thanos_storage == "s3" ? 0 : 1
   namespace          = var.namespace == "" ? var.namespace_name : var.namespace
   policy_resource    = local.storage == 0 ? "[\"arn:aws:s3:::${aws_s3_bucket.thanos[0].id}/*\", \"arn:aws:s3:::${aws_s3_bucket.thanos[0].id}\"]" : "[]"
-}
 
-locals {
   #Grafana
   grafana_name       = "grafana"
   grafana_repository = "https://grafana.github.io/helm-charts"
@@ -50,9 +49,9 @@ locals {
     "persistence.enabled" = true
     "persistence.size"    = "10Gi"
 
-    "adminPassword"           = local.grafana_password
-    "env.GF_SERVER_ROOT_URL"  = "https://grafana.${var.domains[0]}"
-    "namespace"               = local.namespace
+    "adminPassword"          = local.grafana_password
+    "env.GF_SERVER_ROOT_URL" = "https://grafana.${var.domains[0]}"
+    "namespace"              = local.namespace
   }
 
   #Prometheus
