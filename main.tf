@@ -100,7 +100,7 @@ module "iam_assumable_role_admin" {
 }
 
 resource "aws_iam_policy" "thanos" {
-  name_prefix = "${data.aws_eks_cluster.this.id}-thanos-"
+  name_prefix = "${data.aws_eks_cluster.this.id}-thanos"
   description = "EKS thanos-s3 policy for cluster ${data.aws_eks_cluster.this.id}"
   policy = jsonencode(
     {
