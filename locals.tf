@@ -117,7 +117,7 @@ locals {
     "metrics.enabled"                   = "true"
     "minio.enabled"                     = local.storage > 0 ? "true" : "false"
     "minio.accessKey.password"          = "thanosStorage"
-    "minio.secretKey.password"          = local.storage
+    "minio.secretKey.password"          = ""
     "existingObjstoreSecret"            = local.storage > 0 ? kubernetes_secret.thanos_objstore[0].metadata.0.name : kubernetes_secret.s3_objstore[0].metadata.0.name
     "namespace"                         = local.namespace
     "existingServiceAccount"            = local.thanos_name

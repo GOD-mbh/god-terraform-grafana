@@ -99,16 +99,6 @@ module "iam_assumable_role_admin" {
   tags                          = var.tags
 }
 
-resource "aws_kms_ciphertext" "grafana_password" {
-  key_id    = var.cluster_name.kms_key_id
-  plaintext = local.grafana_password
-}
-
-resource "aws_kms_ciphertext" "thanos_password" {
-  key_id    = var.cluster_name.kms_key_id
-  plaintext = local.thanos_password
-}
-
 resource "aws_iam_policy" "thanos" {
   name_prefix = "${data.aws_eks_cluster.this.id}-thanos"
   description = "EKS thanos-s3 policy for cluster ${data.aws_eks_cluster.this.id}"
